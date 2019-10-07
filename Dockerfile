@@ -6,4 +6,4 @@ COPY . .
 
 RUN yarn
 
-EXPOSE 8001
+EXPOSE 8002
