@@ -1,11 +1,33 @@
-version: "3"
+version: '3'
 
 services:
-  user-driblo:
-    container_name: user-driblo
-    build: .
-    command: bash -c "yarn && yarn dev"
+  db:
+    container_name: db
+    restart: always
+    image: postgres
+    environment:
+      POSTGRES_DB: driblo-user
+      POSTGRES_USER: driblo
+      POSTGRES_PASSWORD: driblo123
     ports:
-      - "8002:8002"
+      - '5432:5432'
+    networks:
+      - network-api
     volumes:
-      - .:/usr/app
+      - ./dados:/var/lib/postgresql/data
+  web:
+    container_name: web
+    image: api
+    depends_on:
+      - db
+    command: bash -c "npx sequelize db:migrate && npx sequelize db:seed:undo:all && npx sequelize db:seed:all && yarn dev"
+    build: ./
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - '8002:8002'
+networks:
+  network-api:
+    external:
+      name: network-api
