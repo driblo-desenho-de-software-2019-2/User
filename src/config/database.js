@@ -1,12 +1,17 @@
+// require('../bootstrap');
+
 module.exports = {
-  dialect: "postgres",
-  host: "db",
-  username: "driblo",
-  password: "driblo123",
-  database: "driblo-user",
+  dialect: 'postgres',
+  host: 'db',
+  username: 'username',
+  password: 'pgpassword',
+  database: 'db',
+  operatorAliases: 'false',
+  // storage: './__tests__/database.sqlite',
+  // logging: false,
   define: {
     timestamp: true,
     underscored: true,
-    underscoredAll: true
+    underscoredAll: true,
   }
 };

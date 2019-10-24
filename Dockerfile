@@ -1,9 +1,11 @@
-FROM node:10
+FROM node:10.16.3
 
-WORKDIR /usr/app
+RUN mkdir app
 
-COPY . .
+WORKDIR /app
 
-RUN yarn
+ADD . /app
+
+RUN yarn install
 
 EXPOSE 8002
