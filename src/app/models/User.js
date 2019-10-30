@@ -12,13 +12,11 @@ class User extends Model {
         kick: Sequelize.INTEGER,
         speed: Sequelize.INTEGER,
         pass: Sequelize.INTEGER,
-        drible: Sequelize.INTEGER,
+        dribble: Sequelize.INTEGER,
         defense: Sequelize.INTEGER,
         goals: Sequelize.INTEGER,
         victories: Sequelize.INTEGER,
         assistances: Sequelize.INTEGER,
-        created_at: Sequelize.DATE,
-        updated_at: Sequelize.DATE
       },
       {
         sequelize

@@ -13,8 +13,8 @@ services:
       - '5432:5432'
     networks:
       - network-api
-    volumes:
-      - ./dados:/var/lib/postgresql/data
+    # volumes:
+    #   - ./dados:/var/lib/postgresql/data
   web:
     container_name: web
     image: api
