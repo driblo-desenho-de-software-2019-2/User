@@ -28,7 +28,7 @@ class UserController {
     });
   }
 
-  async update(req, rest) {
+  async update(req, res) {
     //console.log(req.userId);
     const { email, oldPassword} = req.body;
 
@@ -46,7 +46,7 @@ class UserController {
       return res.status(401).json({ error: "Password does not match" });
     }
 
-    const {id, name, email, birth_date, main_role, kick, speed, dribble, defense} = await user.update(req.body);
+    const {id, name, birth_date, main_role, kick, speed, dribble, defense} = await user.update(req.body);
 
     return res.json({
       id,
