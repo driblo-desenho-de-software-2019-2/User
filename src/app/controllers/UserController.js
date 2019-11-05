@@ -88,9 +88,8 @@ class UserController {
 
     if(email != user.email){
       const userExist = await User.findOne({ where: { email } });
-
       if (userExist) {
-        return res.status(400).json({ error: "user already exists." });
+        return res.status(400).json({ error: "User already exists." });
       }
     }
 
@@ -112,6 +111,53 @@ class UserController {
       defense
     });
   }
+  
+  async listAll(req, res) {
+    const all = await User.findAll({
+      // where: { <attribute>: <value>},
+      attributes: ['id', 'name', 'email'],
+    });
+    return res.json(all);
+  }
+  
+  async searchByid(req, res) {
+    const user = await User.findByPk(req.params.id);
+    
+    if(!user) {
+      return res.status(400).json({ error: "User does not exist" });
+    }
+
+    const { id, name, email, birth_date, main_role, kick, speed, dribble, defense,
+      goals, victories, assistances
+    } = user;
+
+    return res.json({
+      id,
+      name,
+      email,
+      birth_date,
+      main_role,
+      kick,
+      speed,
+      dribble,
+      defense,
+      goals,
+      victories,
+      assistances
+    });
+  }
+
+  async deleteById(req, res) {
+    const user = await User.findByPk(req.params.id);
+    if (!user) {
+      return res.status(400).json({ error: "User does not exist" });
+    }
+    
+    await user.destroy();
+
+    return res.json("User deletion succeeded");
+    }
+
 }
 
 export default new UserController();
