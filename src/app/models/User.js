@@ -1,4 +1,5 @@
 import Sequelize, { Model } from "sequelize";
+import bcrypt from 'bcryptjs';
 
 class User extends Model {
   static init(sequelize) {
@@ -6,24 +7,39 @@ class User extends Model {
       {
         name: Sequelize.STRING,
         email: Sequelize.STRING,
-        password: Sequelize.STRING,
+        password: Sequelize.VIRTUAL,
+        password_hash: Sequelize.STRING,
         birth_date: Sequelize.DATE,
         main_role: Sequelize.STRING,
         kick: Sequelize.INTEGER,
         speed: Sequelize.INTEGER,
         pass: Sequelize.INTEGER,
-        drible: Sequelize.INTEGER,
+        dribble: Sequelize.INTEGER,
         defense: Sequelize.INTEGER,
         goals: Sequelize.INTEGER,
         victories: Sequelize.INTEGER,
         assistances: Sequelize.INTEGER,
-        created_at: Sequelize.DATE,
-        updated_at: Sequelize.DATE
       },
       {
-        sequelize
+        sequelize,
       }
     );
+
+    this.addHook('beforeSave', async (user) => {
+      if(user.password) {
+        user.password_hash = await bcrypt.hash(user.password, 8)
+      }
+    });
+    
+    return this;
+  }
+
+  static associate(models) {
+    this.belongsTo(models.File, { foreignKey: 'avatar_id'});
+  }
+
+  checkPassword(password) {
+    return bcrypt.compare(password, this.password_hash);
   }
 }
 

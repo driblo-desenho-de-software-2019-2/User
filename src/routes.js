@@ -1,30 +1,28 @@
 import { Router } from "express";
-// import { User } from "./app/models/User";
+import multer from "multer";
+import multerConfig from "./config/multer";
 
 import UserController from "./app/controllers/UserController";
+import SessionController from "./app/controllers/SessionController";
+import FileController from "./app/controllers/FileController";
+
+import authMiddleware from "./app/middlewares/auth";
 
 const routes = new Router();
+const upload = multer(multerConfig);
 
-// routes.post("/users", UserController.store);
+routes.post("/users", UserController.store);
+routes.post("/sessions", SessionController.store);
 
-routes.get("/", async (req, res) => {
-  // const user = await User.create({
-  //   name: 'teste',
-  //   email: 'teste@gmail.com',
-  //   password: 'fla',
-  //   birth_date: '08/09/1998',
-  //   main_role: 'Sequelize.STRING',
-  //   kick: 8,
-  //   speed: 9,
-  //   pass: 10,
-  //   drible: 10,
-  //   defense: 10,
-  //   goals: 10,
-  //   victories: 10,
-  //   assistances: 10,
-  // });
-  return res.json({ message: "user api" });
-  // return res.json(user);
-});
+routes.get("/users/all", UserController.listAll);
+routes.get("/users/:id", UserController.searchByid);
+
+routes.use(authMiddleware);
+
+routes.put("/users", UserController.update);
+
+routes.delete("/users/:id", UserController.deleteById);
+
+routes.post("/files", upload.single("file"), FileController.store);
 
 export default routes;
