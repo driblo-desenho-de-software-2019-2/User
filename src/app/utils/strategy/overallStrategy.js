@@ -1,35 +1,43 @@
-function overallZag(habilits) {
-  const paceWeight = 0.1
-  const shootingWeight = 0.1
-  const passingWeight = 0.15
-  const dribblingWeight = 0.15
+function overallZag(skills) {
+  const speedWeight = 0.1
+  const kickWeight = 0.1
+  const passWeight = 0.15
+  const dribbleWeight = 0.15
   const defenseWeight = 0.5
 
-  // const overall = int(round(habilits.pace * paceWeight + 
-  //   habilits.shooting * shootingWeight + habilits.passing * passingWeight +
-  //   habilits.dribbling * dribblingWeight + habilits.defending * defenseWeight + 
-  //   habilits.physical * physicalWeight))
-  return 10;
+  const overall = Math.round(skills.speed * speedWeight + 
+    skills.kick * kickWeight + skills.pass * passWeight +
+    skills.dribble * dribbleWeight + skills.defense * defenseWeight);
+  
+  return overall;
 }
 
-function overallMei(habilit) {
-  const paceWeight = 0.2
-  const shootingWeight = 0.15
-  const passingWeight = 0.35
-  const dribblingWeight = 0.2
+function overallMei(skills) {
+  const speedWeight = 0.2
+  const kickWeight = 0.15
+  const passWeight = 0.35
+  const dribbleWeight = 0.2
   const defenseWeight = 0.1
 
-  return 5;
+  const overall = Math.round(skills.speed * speedWeight + 
+    skills.kick * kickWeight + skills.pass * passWeight +
+    skills.dribble * dribbleWeight + skills.defense * defenseWeight);
+  
+  return overall;
 }
 
-function overallAta(habilit) {
-  const paceWeight = 0.3
-  const shootingWeight = 0.25
-  const passingWeight = 0.1
-  const dribblingWeight = 0.25
+function overallAta(skills) {
+  const speedWeight = 0.3
+  const kickWeight = 0.25
+  const passWeight = 0.1
+  const dribbleWeight = 0.25
   const defenseWeight = 0.1
 
-  return 15;
+  const overall = Math.round(skills.speed * speedWeight + 
+    skills.kick * kickWeight + skills.pass * passWeight +
+    skills.dribble * dribbleWeight + skills.defense * defenseWeight);
+  
+  return overall;
 }
 
 module.exports["zag"] = overallZag;

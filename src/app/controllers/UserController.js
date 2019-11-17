@@ -99,7 +99,19 @@ class UserController {
       return res.status(401).json({ error: "Password does not match" });
     }
 
-    const {id, name, birth_date, main_role, kick, speed, dribble, defense, overall} = await user.update(req.body);
+    const skills = {
+      pass: req.body.pass,
+      defense: req.body.defense,
+      speed: req.body.speed,
+      kick: req.body.kick,
+      dribble: req.body.dribble
+    }
+
+    const overall = overallPosition[position](skills);
+
+    req.body.overall = overall;
+    
+    const {id, name, birth_date, main_role, pass, kick, speed, dribble, defense, overall} = await user.update(req.body);
 
     return res.json({
       id,
@@ -110,14 +122,14 @@ class UserController {
       kick,
       speed,
       dribble,
+      pass,
       defense,
       overall
     });
   }
   
   async listAll(req, res) {
-    const position = "mei";
-    const overall = overallPosition[position](1);
+    
     console.log(overall);
     const all = await User.findAll({
       // where: { <attribute>: <value>},
@@ -134,7 +146,7 @@ class UserController {
     }
 
     const { id, name, email, birth_date, main_role, kick, speed, dribble, defense,
-      goals, victories, assistances, overall
+      goals, victories, pass, assistances, overall
     } = user;
 
     return res.json({
@@ -146,6 +158,7 @@ class UserController {
       kick,
       speed,
       dribble,
+      pass,
       defense,
       goals,
       victories,

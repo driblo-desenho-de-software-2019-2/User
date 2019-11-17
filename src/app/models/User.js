@@ -19,7 +19,6 @@ class User extends Model {
         goals: Sequelize.INTEGER,
         victories: Sequelize.INTEGER,
         assistances: Sequelize.INTEGER,
-        overall: Sequelize.INTEGER
       },
       {
         sequelize,
