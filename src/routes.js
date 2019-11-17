@@ -18,7 +18,7 @@ routes.post("/sessions", SessionController.store);
 routes.get("/users/all", UserController.listAll);
 routes.get("/users/:id", UserController.searchByid);
 
-routes.post("/auth", authUser);
+routes.get("/auth", authUser);
 
 routes.use(authMiddleware);
 

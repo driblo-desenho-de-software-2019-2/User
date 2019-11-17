@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import User from "../models/User";
+import * as overallPosition from "../utils/strategy/overallStrategy";
 
 class UserController {
   async store(req, res) {
@@ -34,7 +35,7 @@ class UserController {
     }
 
     const { id, name, email, birth_date, main_role, kick, speed,
-      dribble, defense, goals, victories, assistances
+      dribble, defense, goals, victories, assistances, overall
     } = await User.create(req.body);
 
     return res.json({
@@ -49,7 +50,8 @@ class UserController {
       defense,
       goals,
       victories,
-      assistances
+      assistances,
+      overall
     });
   }
 
@@ -97,7 +99,7 @@ class UserController {
       return res.status(401).json({ error: "Password does not match" });
     }
 
-    const {id, name, birth_date, main_role, kick, speed, dribble, defense} = await user.update(req.body);
+    const {id, name, birth_date, main_role, kick, speed, dribble, defense, overall} = await user.update(req.body);
 
     return res.json({
       id,
@@ -108,11 +110,15 @@ class UserController {
       kick,
       speed,
       dribble,
-      defense
+      defense,
+      overall
     });
   }
   
   async listAll(req, res) {
+    const position = "mei";
+    const overall = overallPosition[position](1);
+    console.log(overall);
     const all = await User.findAll({
       // where: { <attribute>: <value>},
       attributes: ['id', 'name', 'email'],
@@ -128,7 +134,7 @@ class UserController {
     }
 
     const { id, name, email, birth_date, main_role, kick, speed, dribble, defense,
-      goals, victories, assistances
+      goals, victories, assistances, overall
     } = user;
 
     return res.json({
@@ -143,7 +149,8 @@ class UserController {
       defense,
       goals,
       victories,
-      assistances
+      assistances,
+      overall
     });
   }
 
