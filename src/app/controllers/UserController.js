@@ -100,17 +100,17 @@ class UserController {
     }
 
     const skills = {
-      pass: req.body.pass,
-      defense: req.body.defense,
-      speed: req.body.speed,
-      kick: req.body.kick,
-      dribble: req.body.dribble
+      pass: user.pass,
+      defense: user.defense,
+      speed: user.speed,
+      kick: user.kick,
+      dribble: user.dribble
     }
 
-    const overall = overallPosition[position](skills);
+    const overalls = overallPosition["ata"](skills);
 
-    req.body.overall = overall;
-    
+    req.body.overall = overalls;
+
     const {id, name, birth_date, main_role, pass, kick, speed, dribble, defense, overall} = await user.update(req.body);
 
     return res.json({
@@ -130,7 +130,6 @@ class UserController {
   
   async listAll(req, res) {
     
-    console.log(overall);
     const all = await User.findAll({
       // where: { <attribute>: <value>},
       attributes: ['id', 'name', 'email'],
