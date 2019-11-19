@@ -1,4 +1,5 @@
 FROM node:10.16.3
+RUN mkdir -p /usr/src
 
 RUN mkdir app
 
